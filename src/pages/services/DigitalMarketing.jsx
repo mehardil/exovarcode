@@ -6,9 +6,23 @@ const service = {
   id: "marketing",
   title: "Digital Marketing",
   tagline: "Lead Generation",
-  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=85",
+  image: "/images/service-marketing.png",
   heroText:
     "We build lead generation machines — not vanity campaigns. Every strategy we deploy is tracked to revenue: cost-per-lead, qualified pipeline, and conversion rate. From paid ads to email funnels, we engineer marketing that pays for itself.",
+  metrics: [
+    { value: 4, suffix: "×", label: "Avg Lead Volume Increase" },
+    { value: 68, suffix: "%", label: "Avg Conversion Rate Lift" },
+    { value: 2, suffix: "M+", label: "Pipeline Generated" },
+  ],
+};
+
+const miniCase = {
+  title: "AutoLead CRM — 4.2× Lead Volume in 90 Days",
+  desc: "A B2B SaaS company had a product but no reliable lead engine. We built a full-funnel strategy: Google Ads, LinkedIn outreach, automated email sequences, and HubSpot CRM integration.",
+  quote: "Our pipeline went from $500K to $2.1M in a single quarter. The ROI on Sync-Oaks' work is genuinely remarkable.",
+  author: "Priya S., Head of Growth at AutoLead",
+  metricVal: "4.2×",
+  metricLabel: "Lead Volume Increase",
 };
 
 const steps = [
@@ -36,6 +50,7 @@ export function DigitalMarketing({ openOrder, openBooking }) {
       faqs={faqs}
       openOrder={openOrder}
       openBooking={openBooking}
+      miniCase={miniCase}
     />
   );
 }

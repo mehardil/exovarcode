@@ -32,7 +32,7 @@ function buildGoogleCalendarInvite(booking) {
 
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: `XoCODE Meeting - ${booking.business || booking.name || "New Client"}`,
+    text: `Sync-Oaks Meeting - ${booking.business || booking.name || "New Client"}`,
     details,
     location: booking.format,
     add: [SITE.email, booking.email].filter(Boolean).join(","),
@@ -73,12 +73,12 @@ export function BookingModal({ close, done }) {
         <p>The booking email includes the selected platform, preferred schedule, and a prefilled Google Calendar invite URL.</p>
       </div>
       <EmailForm
-        subject="Book a meeting with XoCODE"
+        subject="Book a meeting with Sync-Oaks"
         formName="Meeting Booking Request"
-        message="Structured meeting booking request for XoCODE"
+        message="Structured meeting booking request for Sync-Oaks"
         onSubmitted={() => done(`Meeting request submitted to ${SITE.email}.`)}
       >
-        <input type="hidden" name="Booking Source" value="XoCODE Booking Modal" />
+        <input type="hidden" name="Booking Source" value="Sync-Oaks Booking Modal" />
         <input type="hidden" name="Booking Purpose" value="Meeting consultation request" />
         <input type="hidden" name="Meeting Invite Platform" value={booking.format} />
         <input type="hidden" name="Meeting Action Link" value={meetingActionLink} />

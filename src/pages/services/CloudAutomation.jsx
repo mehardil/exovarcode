@@ -6,9 +6,23 @@ const service = {
   id: "cloud",
   title: "Cloud & Automation",
   tagline: "Scale & Security",
-  image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=85",
+  image: "/images/service-cloud.png",
   heroText:
     "Unreliable infrastructure and manual processes are silent profit killers. We architect cloud systems on AWS, GCP, and Azure that scale without drama — and build automation layers that eliminate the repetitive work your team should not be doing.",
+  metrics: [
+    { value: 99, suffix: ".98%", label: "Avg Uptime Delivered" },
+    { value: 60, suffix: "%", label: "Avg Infra Cost Reduction" },
+    { value: 20, suffix: "+", label: "Cloud Migrations" },
+  ],
+};
+
+const miniCase = {
+  title: "CloudStack B2B — Zero-Downtime AWS Migration",
+  desc: "An enterprise SaaS company was on unreliable shared hosting with 99.1% uptime and $18K/month in infra costs. We migrated them to AWS ECS with Terraform IaC and cut costs by 60%.",
+  quote: "We haven't had a single incident since migration. Uptime is 99.98% and our bill dropped from $18K to $7K per month.",
+  author: "Marcus C., VP Engineering at CloudStack",
+  metricVal: "99.98%",
+  metricLabel: "Uptime Achieved",
 };
 
 const steps = [
@@ -36,6 +50,7 @@ export function CloudAutomation({ openOrder, openBooking }) {
       faqs={faqs}
       openOrder={openOrder}
       openBooking={openBooking}
+      miniCase={miniCase}
     />
   );
 }

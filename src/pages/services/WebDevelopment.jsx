@@ -6,9 +6,23 @@ const service = {
   id: "web",
   title: "Web Development",
   tagline: "Performance & React",
-  image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=85",
+  image: "/images/service-webdev.png",
   heroText:
     "We build fast, conversion-optimized React websites and web applications — from $499 landing pages to full SaaS platforms. Every project ships with performance optimization, SEO foundation, and mobile-first design built in from day one.",
+  metrics: [
+    { value: 48, suffix: "hr", label: "Average Delivery" },
+    { value: 340, suffix: "%", label: "Avg Traffic Increase" },
+    { value: 50, suffix: "+", label: "Sites Launched" },
+  ],
+};
+
+const miniCase = {
+  title: "NovaMart E-Commerce Platform",
+  desc: "A Karachi-based fashion retailer needed a high-conversion e-commerce site with Stripe checkout, inventory management, and mobile-first design. Built in 3 weeks on React + Node.js.",
+  quote: "Sales tripled in the first month. The speed and quality were unlike anything we'd experienced from a web agency.",
+  author: "Sarah M., CEO of NovaMart",
+  metricVal: "+340%",
+  metricLabel: "Revenue Growth",
 };
 
 const steps = [
@@ -35,6 +49,7 @@ export function WebDevelopment({ openOrder, openBooking }) {
       faqs={faqs}
       openOrder={openOrder}
       openBooking={openBooking}
+      miniCase={miniCase}
     />
   );
 }

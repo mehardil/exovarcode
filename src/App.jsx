@@ -12,10 +12,13 @@ import { Services } from "./pages/Services";
 import { Work } from "./pages/Work";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
+import { CaseStudy } from "./pages/CaseStudy";
 import { WebDevelopment } from "./pages/services/WebDevelopment";
 import { SeoOptimization } from "./pages/services/SeoOptimization";
 import { DigitalMarketing } from "./pages/services/DigitalMarketing";
 import { CloudAutomation } from "./pages/services/CloudAutomation";
+import Portfolio from "./pages/Portfolio";
+import ScrollProgress from "./components/ScrollProgress";
 
 const pageVariants = {
   initial: { opacity: 0, y: 18 },
@@ -35,7 +38,9 @@ function AnimatedRoutes({ onOrder, onBooking, onSuccess }) {
           <Route path="/services/seo-optimization" element={<SeoOptimization openOrder={onOrder} openBooking={onBooking} />} />
           <Route path="/services/digital-marketing" element={<DigitalMarketing openOrder={onOrder} openBooking={onBooking} />} />
           <Route path="/services/cloud-automation" element={<CloudAutomation openOrder={onOrder} openBooking={onBooking} />} />
+          <Route path="/portfolio" element={<Portfolio openBooking={onBooking} />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/case-studies/:slug" element={<CaseStudy openBooking={onBooking} />} />
           <Route path="/about" element={<About openBooking={onBooking} />} />
           <Route path="/contact" element={<Contact openBooking={onBooking} setSuccess={onSuccess} />} />
         </Routes>
@@ -51,6 +56,7 @@ export function App() {
 
   return (
     <BrowserRouter>
+      <ScrollProgress />
       <Header openBooking={() => setBookingOpen(true)} />
       <main>
         <AnimatedRoutes

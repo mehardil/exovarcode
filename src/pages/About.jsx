@@ -73,7 +73,7 @@ export function About({ openBooking }) {
           aria-hidden="true"
         />
         <div className="hero-content">
-          <p className="eyebrow">About XoCODE</p>
+          <p className="eyebrow">About Sync-Oaks</p>
           <h1>The Digital Studio Built for ROI, Not Retainers.</h1>
           <p>
             We are a lean team of engineers, SEO specialists, and growth strategists who believe
@@ -109,7 +109,7 @@ export function About({ openBooking }) {
       {/* PROCESS */}
       <section className="section-head wrap">
         <FadeUp>
-          <p className="eyebrow">The XoCODE Way</p>
+          <p className="eyebrow">The Sync-Oaks Way</p>
           <h2>Discovery → Build → Launch.</h2>
           <p>
             A repeatable, three-phase process that eliminates ambiguity, keeps projects on schedule,

@@ -89,12 +89,12 @@ export function Contact({ openBooking, setSuccess }) {
         <FadeUp>
           <EmailForm
             className="form-card"
-            subject="New XoCODE Detailed Inquiry"
+            subject="New Sync-Oaks Detailed Inquiry"
             formName="Detailed Contact Form"
-            message="New detailed project inquiry for XoCODE"
+            message="New detailed project inquiry for Sync-Oaks"
             onSubmitted={() => setSuccess(`Your detailed inquiry was submitted to ${SITE.email}.`)}
           >
-            <input type="hidden" name="Inquiry Source" value="XoCODE Detailed Contact Form" />
+            <input type="hidden" name="Inquiry Source" value="Sync-Oaks Detailed Contact Form" />
             <div className="form-row">
               <label>Business Name<input required name="01 - Business Name" placeholder="Company or brand name" /></label>
               <label>Your Name<input required name="02 - Contact Person Name" placeholder="Full name" /></label>

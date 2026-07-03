@@ -19,11 +19,11 @@ class ErrorBoundary extends React.Component {
     if (this.state.error) {
       return (
         <main className="boot-error wrap">
-          <p className="eyebrow">XoCODE</p>
+          <p className="eyebrow">Sync-Oaks</p>
           <h1>Black digital product studio for websites, apps, SEO, cloud, and automation.</h1>
           <p>{this.state.error.message}</p>
           <div className="actions">
-            <a className="primary fallback-link" href="mailto:exovarsystems@gmail.com?subject=New%20XoCODE%20project">
+            <a className="primary fallback-link" href="mailto:support@syncoaks.com?subject=New%20Sync-Oaks%20project">
               Start a Project
             </a>
             <a className="secondary fallback-link" href="https://meet.google.com/new">
@@ -42,9 +42,9 @@ function showBootError(error) {
   rootElement.innerHTML = `
     <main class="boot-error wrap">
       <p class="eyebrow">React startup issue</p>
-      <h1>XoCODE could not start in this browser session.</h1>
+      <h1>Sync-Oaks could not start in this browser session.</h1>
       <p>${error?.message || "Unknown startup error"}</p>
-      <a class="primary fallback-link" href="mailto:exovarsystems@gmail.com">Contact XoCODE</a>
+      <a class="primary fallback-link" href="mailto:support@syncoaks.com">Contact Sync-Oaks</a>
     </main>
   `;
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { SITE, mailto } from "../config/site";
 
-export function EmailForm({ children, subject, message, onSubmitted, className = "modal-form", formName = "XoCODE Form" }) {
-  const fallbackBody = "Please send this request to XoCODE.";
+export function EmailForm({ children, subject, message, onSubmitted, className = "modal-form", formName = "Sync-Oaks Form" }) {
+  const fallbackBody = "Please send this request to Sync-Oaks.";
   const submittedAt = new Date().toLocaleString();
 
   return (

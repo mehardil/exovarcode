@@ -1,10 +1,10 @@
-# XoCODE Project Guide
+# Sync-Oaks Project Guide
 
 Read this file first before making changes. It is the quick source of truth for the project structure, behavior, design, and update rules. When a future change alters routes, components, email behavior, design rules, dependencies, or commands, update this file in the same change.
 
 ## Project Summary
 
-XoCODE is a React + Vite single page website for a black-themed digital product studio. It includes Home, Services, Work, and Contact views, plus modals for order confirmation and meeting booking.
+Sync-Oaks is a React + Vite single page website for a black-themed digital product studio. It includes Home, Services, Work, and Contact views, plus modals for order confirmation and meeting booking.
 
 There is no backend. Contact, booking, and order forms submit through a frontend form service and include fallback email links.
 
@@ -20,9 +20,9 @@ If a dev server looks stale or broken, start a new port, then hard refresh the b
 ## Key Files
 
 - `index.html`: HTML shell and fallback black landing page shown before React mounts.
-- `public/Xocode.jpg`: Main raster logo image copied from `dist/Xocode.jpg`; used by the header/footer brand and favicon.
-- `public/xocode-logo.svg`: Main XoCODE logo asset used in the header, footer, fallback HTML, and favicon.
-- `public/xocode-mark.svg`: Compact symbol-only XoCODE mark used in the header/footer brand pill.
+- `public/sync-oaks-logo-web.png`: Header/footer logo recolored for the obsidian and antique-gold site palette.
+- `public/sync-oaks-logo-full.png`: Full stacked Sync-Oaks logo variant.
+- `public/sync-oaks-favicon.png`: Compact Sync-Oaks mark used as the favicon.
 - `vite.config.js`: Vite config. Uses `@vitejs/plugin-react`; keep this file because JSX depends on the React plugin.
 - `src/main.jsx`: React entry point and error boundary. If React rendering fails, it shows a visible fallback instead of a blank page.
 - `src/App.jsx`: Top-level app state and page switching. Current views are `home`, `services`, `work`, and `contact`.
@@ -34,7 +34,7 @@ If a dev server looks stale or broken, start a new port, then hard refresh the b
 
 - `src/components/Header.jsx`: Main navigation and Book Meet button.
 - `src/components/Footer.jsx`: Footer links and contact info.
-- `src/components/Brand.jsx`: Reusable XoCODE logo component. Uses `/Xocode.jpg` inside a cropped logo plate.
+- `src/components/Brand.jsx`: Reusable Sync-Oaks logo component. Uses `/sync-oaks-logo-web.png` inside the brand pill.
 - `src/components/SectionIntro.jsx`: Shared section heading block.
 - `src/components/Modal.jsx`: Modal shell and success modal.
 - `src/components/EmailForm.jsx`: Shared form wrapper for email submissions.
@@ -55,13 +55,13 @@ All email-related values live in `src/config/site.js`.
 Current destination email:
 
 ```js
-exovarsystems@gmail.com
+support@syncoaks.com
 ```
 
 Current form endpoint:
 
 ```js
-https://formsubmit.co/exovarsystems@gmail.com
+https://formsubmit.co/support@syncoaks.com
 ```
 
 Important notes:
@@ -72,7 +72,7 @@ Important notes:
 - Booking submissions use structured field names in `src/components/BookingModal.jsx` so the received email contains name, business, email, phone, service, preferred date/time, meeting format, agenda, project link, extra notes, and reply instructions.
 - Booking submissions also include invite-related hidden fields: meeting invite platform, meeting action link, Google Calendar invite URL, and invite delivery request. Without a backend/API login, the site cannot automatically create a real Google Meet or Zoom room, but it sends the invite action details in the booking email.
 - `EmailForm.jsx` also adds hidden context fields to each submission: form name, website, destination email, submitted time, and submitted page URL.
-- FormSubmit may require one-time confirmation from `exovarsystems@gmail.com` before forwarding messages.
+- FormSubmit may require one-time confirmation from `support@syncoaks.com` before forwarding messages.
 - Meeting links are stored in `SITE.googleMeet` and `SITE.zoom`.
 
 ## Design Rules

@@ -1,11 +1,11 @@
 export const SITE = {
-  name: "XoCODE",
-  email: "exovarsystems@gmail.com",
+  name: "Sync-Oaks",
+  email: "support@syncoaks.com",
   phone: "+92 331 905 1913",
   whatsapp: "https://wa.me/923319051913",
   googleMeet: "https://meet.google.com/new",
   zoom: "https://zoom.us/start/videomeeting",
-  formEndpoint: "https://formsubmit.co/exovarsystems@gmail.com",
+  formEndpoint: "https://formsubmit.co/support@syncoaks.com",
 };
 
 export const mailto = (subject, body) =>

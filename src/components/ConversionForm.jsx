@@ -35,7 +35,7 @@ export function ConversionForm({ onSubmitted }) {
     e.preventDefault();
     setSubmitting(true);
     const data = new FormData();
-    data.append("_subject", "New XoCODE Lead — Multi-step Form");
+    data.append("_subject", "New Sync-Oaks Lead — Multi-step Form");
     data.append("_template", "table");
     data.append("_captcha", "false");
     data.append("Services", selected.join(", ") || "Not specified");
@@ -151,7 +151,7 @@ export function ConversionForm({ onSubmitted }) {
           </div>
           <a
             className="email-fallback"
-            href={mailto("New XoCODE Lead Inquiry", `Services: ${selected.join(", ")}\nBudget: ${budget}\nName: ${form.name}\nEmail: ${form.email}`)}
+            href={mailto("New Sync-Oaks Lead Inquiry", `Services: ${selected.join(", ")}\nBudget: ${budget}\nName: ${form.name}\nEmail: ${form.email}`)}
           >
             Email fallback
           </a>

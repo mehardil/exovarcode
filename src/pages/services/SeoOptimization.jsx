@@ -6,9 +6,23 @@ const service = {
   id: "seo",
   title: "SEO Optimization",
   tagline: "Growth & ROI",
-  image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&w=1400&q=85",
+  image: "/images/service-seo.png",
   heroText:
     "Organic search is the highest-ROI channel in digital marketing. We build the technical foundation, content strategy, and backlink infrastructure needed to rank — and our 24/7 reporting dashboard shows exactly where every dollar of search value comes from.",
+  metrics: [
+    { value: 215, suffix: "%", label: "Avg Organic Traffic Lift" },
+    { value: 4, suffix: "mo", label: "Avg Time to Rank #1" },
+    { value: 30, suffix: "+", label: "SEO Clients" },
+  ],
+};
+
+const miniCase = {
+  title: "GreenGlow Organics — #1 Ranking in 4 Months",
+  desc: "A health & CPG brand was invisible online despite a great product. We rebuilt their technical SEO architecture, created a content cluster strategy, and built 140 quality backlinks over 4 months.",
+  quote: "We went from page 8 to #1 for our main keyword. Organic revenue now accounts for 55% of total sales.",
+  author: "Tom H., Marketing Director at GreenGlow",
+  metricVal: "#1",
+  metricLabel: "Google Ranking",
 };
 
 const steps = [
@@ -36,6 +50,7 @@ export function SeoOptimization({ openOrder, openBooking }) {
       faqs={faqs}
       openOrder={openOrder}
       openBooking={openBooking}
+      miniCase={miniCase}
     />
   );
 }

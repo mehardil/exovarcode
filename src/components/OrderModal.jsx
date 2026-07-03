@@ -4,12 +4,12 @@ import { EmailForm } from "./EmailForm";
 import { Modal } from "./Modal";
 
 export function OrderModal({ order, close, done }) {
-  const orderId = useMemo(() => `XO-${new Date().getFullYear()}-${Math.floor(Math.random() * 90000 + 10000)}`, []);
+  const orderId = useMemo(() => `SO-${new Date().getFullYear()}-${Math.floor(Math.random() * 90000 + 10000)}`, []);
 
   return (
     <Modal close={close} title="Confirm Order" subtitle={`${order.plan} - ${order.price}`}>
       <EmailForm
-        subject={`Confirm XoCODE Order ${orderId}`}
+        subject={`Confirm Sync-Oaks Order ${orderId}`}
         message={`Confirm order ${orderId} for ${order.plan}`}
         onSubmitted={() => done(`Order ${orderId} was submitted to ${SITE.email}.`)}
       >
