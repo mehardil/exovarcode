@@ -23,7 +23,7 @@ class ErrorBoundary extends React.Component {
           <h1>Black digital product studio for websites, apps, SEO, cloud, and automation.</h1>
           <p>{this.state.error.message}</p>
           <div className="actions">
-            <a className="primary fallback-link" href="mailto:support@syncoaks.com?subject=New%20Sync-Oaks%20project">
+            <a className="primary fallback-link" href="mailto:mehardil13302@gmail.com?subject=New%20Sync-Oaks%20project">
               Start a Project
             </a>
             <a className="secondary fallback-link" href="https://meet.google.com/new">
@@ -44,7 +44,7 @@ function showBootError(error) {
       <p class="eyebrow">React startup issue</p>
       <h1>Sync-Oaks could not start in this browser session.</h1>
       <p>${error?.message || "Unknown startup error"}</p>
-      <a class="primary fallback-link" href="mailto:support@syncoaks.com">Contact Sync-Oaks</a>
+      <a class="primary fallback-link" href="mailto:mehardil13302@gmail.com">Contact Sync-Oaks</a>
     </main>
   `;
 }

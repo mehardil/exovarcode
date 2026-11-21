@@ -55,13 +55,13 @@ All email-related values live in `src/config/site.js`.
 Current destination email:
 
 ```js
-support@syncoaks.com
+mehardil13302@gmail.com
 ```
 
 Current form endpoint:
 
 ```js
-https://formsubmit.co/support@syncoaks.com
+https://formsubmit.co/mehardil13302@gmail.com
 ```
 
 Important notes:
@@ -72,7 +72,7 @@ Important notes:
 - Booking submissions use structured field names in `src/components/BookingModal.jsx` so the received email contains name, business, email, phone, service, preferred date/time, meeting format, agenda, project link, extra notes, and reply instructions.
 - Booking submissions also include invite-related hidden fields: meeting invite platform, meeting action link, Google Calendar invite URL, and invite delivery request. Without a backend/API login, the site cannot automatically create a real Google Meet or Zoom room, but it sends the invite action details in the booking email.
 - `EmailForm.jsx` also adds hidden context fields to each submission: form name, website, destination email, submitted time, and submitted page URL.
-- FormSubmit may require one-time confirmation from `support@syncoaks.com` before forwarding messages.
+- FormSubmit may require one-time confirmation from `mehardil13302@gmail.com` before forwarding messages.
 - Meeting links are stored in `SITE.googleMeet` and `SITE.zoom`.
 
 ## Design Rules
