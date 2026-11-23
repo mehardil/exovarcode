@@ -1,0 +1,52 @@
+name: Weekly SEO indexing
+
+on:
+  schedule:
+    # Every Monday at 07:00 UTC
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-indexing
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore indexing state
+        uses: actions/cache@v4
+        with:
+          path: scripts/indexing/.state.json
+          key: index-state-${{ github.run_id }}
+          restore-keys: |
+            index-state-
+
+      - name: Validate articles
+        run: npm run content:validate
+
+      - name: Submit sitemap changes
+        env:
+          SITE_URL: https://syncoaks.com
+          SITEMAP_URL: https://syncoaks.com/sitemap.xml
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_INDEXING_API_ENABLED: ${{ secrets.GOOGLE_INDEXING_API_ENABLED }}
+          MAX_URLS_PER_RUN: "200"
+        run: npm run index:submit

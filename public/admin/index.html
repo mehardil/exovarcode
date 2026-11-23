@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>Sync-Oaks Content Admin</title>
+    <link rel="icon" href="/sync-oaks-favicon.svg" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: #0b0c0f;
+        color: #f5f1e8;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      .fallback {
+        max-width: 460px;
+        border: 1px solid rgba(224, 191, 122, 0.24);
+        border-radius: 16px;
+        padding: 28px;
+        background: #101319;
+      }
+      .fallback img {
+        height: 38px;
+        width: auto;
+        margin-bottom: 18px;
+      }
+      .fallback h1 {
+        font-size: 22px;
+        margin: 0 0 8px;
+      }
+      .fallback p {
+        color: #9c978d;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+      .fallback code {
+        background: #1b202b;
+        border-radius: 4px;
+        padding: 2px 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nc-root">
+      <div class="fallback">
+        <img src="/sync-oaks-logo-web-hq.svg" alt="Sync-Oaks" />
+        <h1>Content admin is loading…</h1>
+        <p>
+          If this message stays visible, the Decap CMS script could not load, or the
+          admin configuration is incomplete. See <code>docs/ADMIN-GUIDE.md</code> for
+          setup steps.
+        </p>
+      </div>
+    </div>
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+  </body>
+</html>

@@ -1,122 +1,184 @@
 # Sync-Oaks Project Guide
 
-Read this file first before making changes. It is the quick source of truth for the project structure, behavior, design, and update rules. When a future change alters routes, components, email behavior, design rules, dependencies, or commands, update this file in the same change.
+Read this file first before making changes. It is the quick source of truth for the
+project structure, behavior, design, and update rules. When a future change alters
+routes, components, email behavior, design rules, dependencies, or commands, update
+this file in the same change.
 
 ## Project Summary
 
-Sync-Oaks is a React + Vite single page website for a black-themed digital product studio. It includes Home, Services, Work, and Contact views, plus modals for order confirmation and meeting booking.
+Sync-Oaks is a Next.js 16 (App Router) statically exported marketing website for a
+digital product studio. It covers home, services, portfolio, blog, about, contact,
+book-meeting, legal pages, RSS, sitemap, robots, and `llms.txt`.
 
-There is no backend. Contact, booking, and order forms submit through a frontend form service and include fallback email links.
+The site is deployed as static files (`out/`) to Cloudflare Pages, with a single
+Cloudflare Pages Function (`functions/api/lead.js`) for lead email delivery.
 
 ## Commands
 
 - Install dependencies: `npm install`
-- Run dev server: `npm run dev -- --port 5179`
-- Production build: `npm run build`
-- Preview production build: `npm run preview`
+- Run dev server: `npm run dev`
+- Production build (static export to `out/`): `npm run build`
+- Preview the exported build: `npm run preview`
+- Regenerate Open Graph images: `npm run og:generate`
+- Regenerate optimized WebP images: `npm run images:optimize`
+- Submit URLs for indexing: `npm run index:submit` (dry run: `npm run index:dry`)
 
-If a dev server looks stale or broken, start a new port, then hard refresh the browser with `Ctrl + Shift + R`.
+`prebuild` runs `scripts/generate-og.mjs` automatically. The image optimizer is a
+manual step: run it after adding or replacing files in `public/images`.
+
+## Stack
+
+- Next.js App Router with `output: "export"` (fully static HTML).
+- React 19 and `react-dom` (`preload` is used for the hero image).
+- `framer-motion` for scroll reveal motion.
+- `three` for the lazily mounted hero network scene.
+- `lucide-react` icons, `gray-matter` + `marked` for Markdown articles, `zod` for
+  lead validation, `sharp` for image/OG generation.
 
 ## Key Files
 
-- `index.html`: HTML shell and fallback black landing page shown before React mounts.
-- `public/sync-oaks-logo-web.png`: Header/footer logo recolored for the obsidian and antique-gold site palette.
-- `public/sync-oaks-logo-full.png`: Full stacked Sync-Oaks logo variant.
-- `public/sync-oaks-favicon.png`: Compact Sync-Oaks mark used as the favicon.
-- `vite.config.js`: Vite config. Uses `@vitejs/plugin-react`; keep this file because JSX depends on the React plugin.
-- `src/main.jsx`: React entry point and error boundary. If React rendering fails, it shows a visible fallback instead of a blank page.
-- `src/App.jsx`: Top-level app state and page switching. Current views are `home`, `services`, `work`, and `contact`.
-- `src/styles.css`: Global black design system and responsive layout. This project currently uses one black theme only.
-- `src/config/site.js`: Brand/contact config, email target, meeting links, form endpoint, and helpers.
-- `src/data/content.js`: Service cards, pricing plans, and work cards.
-
-## Components
-
-- `src/components/Header.jsx`: Main navigation and Book Meet button.
-- `src/components/Footer.jsx`: Footer links and contact info.
-- `src/components/Brand.jsx`: Reusable Sync-Oaks logo component. Uses `/sync-oaks-logo-web.png` inside the brand pill.
-- `src/components/SectionIntro.jsx`: Shared section heading block.
-- `src/components/Modal.jsx`: Modal shell and success modal.
-- `src/components/EmailForm.jsx`: Shared form wrapper for email submissions.
-- `src/components/OrderModal.jsx`: Confirm Order modal.
-- `src/components/BookingModal.jsx`: Book Meeting modal.
+- `app/layout.jsx`: fonts, global metadata, header/footer, analytics, JSON-LD.
+- `app/page.jsx`: home page (hero, bento, services, process, pricing, FAQ, articles).
+- `app/globals.css`: the full design system and responsive layout.
+- `app/services/[slug]/page.jsx`: service detail routes generated from `lib/services.js`.
+- `app/blog/[slug]/page.jsx`: article routes generated from `content/articles/*.md`.
+- `app/sitemap.js`, `app/robots.js`, `app/rss.xml/route.js`, `app/llms.txt/route.js`.
+- `lib/site.js`: brand/contact config, nav, WhatsApp helpers, copy.
+- `lib/services.js`: service content, images, pricing, FAQs.
+- `lib/portfolio.js`: portfolio summaries and images.
+- `lib/articles.js`: Markdown loading, categories, pagination.
+- `lib/seo.js`: metadata and structured-data helpers.
+- `functions/api/lead.js`: Cloudflare Pages Function for lead email (Resend + KV rate limit).
 
 ## Pages
 
-- `src/pages/Home.jsx`: Hero, service cards, proof/process cards, and meeting CTA. The meeting CTA should offer WhatsApp Sales, Schedule Meeting, and Invite Sales Team.
-- `src/pages/Services.jsx`: Service tabs and pricing cards.
-- `src/pages/Work.jsx`: Portfolio/work cards.
-- `src/pages/Contact.jsx`: Contact details, meeting links, and inquiry form.
+- `/` Home: hero, services, process, pricing, FAQ, latest articles.
+- `/services/` and `/services/[slug]/`: service overview and detail pages.
+- `/portfolio/`: selected work summaries.
+- `/blog/`, `/blog/page/[page]/`, `/blog/category/[category]/`, `/blog/[slug]/`.
+- `/about/`, `/contact/`, `/book-meeting/`.
+- `/locations/`, `/locations/[slug]/`: service-area pages for the USA, UK and UAE.
+- `/privacy/`, `/terms/`, `/404`, `/sitemap.xml`, `/robots.txt`, `/rss.xml`, `/llms.txt`.
 
-## Email And Booking Behavior
+## Page Hero Identities
 
-All email-related values live in `src/config/site.js`.
+Every inner page has its own hero identity via a `hero-page--*` class plus
+`components/HeroFlair.jsx`:
 
-Current destination email:
+- `services` (teal constellation, narrow copy), `portfolio` (warm editorial index),
+  `blog` (cool journal, blue accent), `about` (centered manifesto),
+  `contact` (green conversation), `booking` (scheduler grid), `locations` (map grid),
+  `legal` (quiet), `notfound` (red wrong-turn).
+- Each variant changes `--page-accent`, the `::before` gradient/pattern, the blurred tile
+  tint via `::after`, the watermark word/rings, and sometimes layout/width.
+- To add a page: add the `hero-page--<name>` class to its hero `<section>`, render
+  `<HeroFlair variant="<name>" label="..." />`, and add the matching CSS block in
+  `app/globals.css`.
 
-```js
-mehardil13302@gmail.com
-```
+## Locations And Market Targeting
 
-Current form endpoint:
+- `lib/locations.js` holds the USA, UK and UAE page content (currency, timezone,
+  compliance, pricing, FAQs, keywords).
+- `app/locations/[slug]/page.jsx` renders each market with `Service`, `FAQPage`,
+  `WebPage` and `BreadcrumbList` schema plus `hreflang` alternates.
+- `lib/site.js` exports `MARKETS`; `lib/seo.js` uses it for `Organization.areaServed`.
+- Edit copy in `lib/locations.js`, never hardcode it in the page.
 
-```js
-https://formsubmit.co/mehardil13302@gmail.com
-```
+## Weekly Content Workflow
 
-Important notes:
+1. Open `scripts/prompts/weekly-articles.md` and give it to the agent.
+2. The agent creates 5–10 articles in `content/articles/` using `_template.md`.
+3. Run `npm run content:validate` (checks slugs, keywords, images, links, length).
+4. Run `npm run images:optimize` if images changed, then `npm run build`.
+5. Commit, push, and let Cloudflare Pages deploy.
+6. Run `npm run index:submit` after deploy. `.github/workflows/indexing.yml` also runs
+   the same indexing weekly on a schedule.
 
-- `mailto:` alone does not send email automatically; it only opens a draft.
-- `EmailForm.jsx` submits forms to FormSubmit and also shows an email fallback link.
-- Contact submissions use structured field names in `src/pages/Contact.jsx` so the received email contains all project details in order: business, contact person, email, phone, location, preferred contact method, service, budget, timeline, meeting preference, reference link, goals, requirements, and extra notes.
-- Booking submissions use structured field names in `src/components/BookingModal.jsx` so the received email contains name, business, email, phone, service, preferred date/time, meeting format, agenda, project link, extra notes, and reply instructions.
-- Booking submissions also include invite-related hidden fields: meeting invite platform, meeting action link, Google Calendar invite URL, and invite delivery request. Without a backend/API login, the site cannot automatically create a real Google Meet or Zoom room, but it sends the invite action details in the booking email.
-- `EmailForm.jsx` also adds hidden context fields to each submission: form name, website, destination email, submitted time, and submitted page URL.
-- FormSubmit may require one-time confirmation from `mehardil13302@gmail.com` before forwarding messages.
-- Meeting links are stored in `SITE.googleMeet` and `SITE.zoom`.
+## Mobile Behavior
+
+- On `<=760px`, `.reveal` elements are forced visible (desktop keeps the scroll animation),
+  so a slow or failed hydration can never leave blank sections.
+- The mobile drawer is always in the DOM and toggled by the `.is-open` class. A native
+  inline fallback in `app/layout.jsx` (`#menu-fallback`) keeps the hamburger working even
+  if React has not hydrated. The toggle has a 44px tap target and `touch-action: manipulation`.
+- `#reveal-fallback` in `app/layout.jsx` reveals any still-hidden `.reveal` blocks if the
+  IntersectionObserver never reports, protecting desktop as well.
+- Mobile spacing is tightened (`--section-y: 2.75rem`, smaller hero/section padding) and
+  lazy image containers have gradient placeholders so they never look empty while loading.
+- `app/loading.jsx` + `.page-loader` provide a branded route-loading indicator.
+
+## Forms And Email
+
+- `components/LeadForm.jsx` posts JSON to `/api/lead` (Cloudflare Pages Function).
+- `functions/api/lead.js` validates with Zod, optionally verifies Cloudflare Turnstile,
+  rate-limits with KV when configured, and sends email through Resend.
+- If the API is unavailable, the UI keeps a WhatsApp path and an email fallback.
+- Env vars are documented in `.env.example` (`RESEND_API_KEY`, `LEAD_TO_EMAIL`,
+  `LEAD_FROM_EMAIL`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`).
+- Keep the `_headers` content-security-policy in sync if you add third-party scripts.
+
+## Performance Rules
+
+- Images under `public/images` must ship as optimized `.webp`. `scripts/optimize-images.mjs`
+  converts the card `.jpg` sources and the hero PNG into WebP (hero is ~68KB vs 1.6MB).
+- The hero uses `/images/hero-services.webp` and is preloaded with
+  `react-dom`'s `preload()` and `fetchPriority="high"`.
+- The hero atmosphere uses `/images/hero-blur.webp` (64px blurred source) as CSS
+  background layers, so the blur costs almost no bytes. It is hidden under 640px and
+  disabled under `prefers-reduced-motion`.
+- Every inner-page hero (`.hero-page`) and article header (`.article-header`) gets a
+  blurred backdrop from the tiny `blur-*.webp` tiles via CSS `::after`. There is no extra
+  markup or JavaScript for it.
+- `components/ScrollSpider.jsx` draws the gold scroll-linked brand spider. It updates only
+  while scrolling, is hidden below 1200px, and is disabled under reduced motion.
+- `components/Hero3D.jsx` + `components/NetworkScene.jsx` render the three.js hero scene.
+  `variant="ambient"` is used on the Services, Portfolio, Insights, About and Contact
+  heroes. `NetworkScene` imports only the three.js classes it needs, so the lazy chunk is
+  ~131KB gzipped (under the 150KB budget).
+- The 3D scene boots only after idle time and when its hero is in view, caps DPR at 1.5
+  (ambient) / 1.7 (full), pauses off-screen and on hidden tabs, and is skipped for
+  reduced motion, small screens, 2G/save-data, low-core/low-memory devices, and missing
+  WebGL. The fallback is the CSS gradient `.hero-fallback`.
+- Motion uses lightweight IntersectionObserver + rAF (Reveal, Counter, TiltCard,
+  HeroVisual parallax) rather than a heavy animation library, to protect INP and TBT.
+- The Three.js scene is dynamically imported without SSR and only starts on desktop,
+  WebGL-capable, motion-friendly devices during idle time.
+- All below-the-fold images use `loading="lazy" decoding="async"` with explicit
+  `width`/`height`.
+- `/_next/static/*` is immutable; `/images/*` and `/og/*` are cached for 30 days.
 
 ## Design Rules
 
-- Use one black design only. Do not reintroduce white/light theme unless explicitly requested.
-- Main colors are CSS variables in `src/styles.css`.
-- Keep the site clean, modern, and service-focused.
-- Cards use `8px` border radius.
-- Do not add a Track Order page or order tracking UI unless explicitly requested.
-- Use real section images for service/work cards when adding new sections.
+- Dark-first obsidian + antique gold palette with a light theme via `data-theme`.
+- Colors are CSS variables in `app/globals.css`.
+- Cards use the existing radius tokens; keep the site clean and service-focused.
+- Do not add a track-order page or order-tracking UI unless explicitly requested.
 - Keep mobile layouts responsive through the existing media queries.
 
 ## Adding Or Editing Content
 
-For services, pricing, or portfolio/work cards, edit `src/data/content.js`.
-
-For brand name, email, phone, WhatsApp, Google Meet, Zoom, or form endpoint, edit `src/config/site.js`.
-
-For layout or page copy:
-
-- Home: `src/pages/Home.jsx`
-- Services: `src/pages/Services.jsx`
-- Work: `src/pages/Work.jsx`
-- Contact: `src/pages/Contact.jsx`
-
-For shared UI:
-
-- Navigation: `src/components/Header.jsx`
-- Footer: `src/components/Footer.jsx`
-- Modals/forms: `src/components/*Modal.jsx` and `src/components/EmailForm.jsx`
+- Services and pricing: `lib/services.js`.
+- Portfolio/work: `lib/portfolio.js`.
+- Blog posts: add a Markdown file in `content/articles/` with front matter
+  (`title`, `description`, `date`, `category`, `coverImage`, etc.).
+- Brand, email, phone, WhatsApp, social: `lib/site.js`.
+- Navigation: `components/Header.jsx` + `primaryNav` in `lib/site.js`.
 
 ## Known Pitfalls
 
-- Keep explicit `import React from "react";` in JSX files. This avoids `React is not defined` runtime issues in this project.
-- Keep `vite.config.js`; removing it can break JSX behavior.
-- If the page shows the fallback error, check the error message inside the page and inspect `src/main.jsx` error boundary.
-- If the browser still shows an old error, use a new dev server port and hard refresh.
+- This is a static export: there is no server runtime. Anything dynamic must be a
+  Cloudflare Pages Function (`functions/`) or client-side.
+- Reference images by their `.webp` path. Adding a `.jpg`/PNG reference will bypass
+  the optimized assets and slow the site down.
+- After changing routes or assets, run `npm run build` and check the `out/` route list.
+- `.next/` and `out/` are build artifacts and must stay git-ignored.
 
 ## Update Checklist
 
-When changing the project:
-
 1. Read this file first.
-2. Make the code change in the correct file.
-3. Run `npm run build`.
-4. Update this file if the change affects structure, behavior, commands, email flow, design rules, or known pitfalls.
-5. Start or restart the dev server on a fresh port if the browser shows stale output.
+2. Make the change in the correct file.
+3. Run `npm run images:optimize` if images changed.
+4. Run `npm run build`.
+5. Update this file if the change affects structure, behavior, commands, email flow,
+   design rules, performance, or known pitfalls.
