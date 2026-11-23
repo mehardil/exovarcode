@@ -108,6 +108,17 @@ Every inner page has its own hero identity via a `hero-page--*` class plus
   lazy image containers have gradient placeholders so they never look empty while loading.
 - `app/loading.jsx` + `.page-loader` provide a branded route-loading indicator.
 
+## Deployment (Cloudflare Pages)
+
+- `next build` with `output: "export"` writes the static site to `out/`.
+- `postbuild` runs `scripts/prepare-dist.mjs`, which mirrors `out/` to `dist/`. This keeps
+  existing Cloudflare projects that expect `dist/` working.
+- Recommended Cloudflare Pages settings:
+  - Framework preset: **None** (not Vite)
+  - Build command: `npm run build`
+  - Build output directory: `out` (or leave `dist`, which the postbuild mirrors)
+- `dist/` and `out/` are git-ignored; they are generated during the build.
+
 ## Forms And Email
 
 - `components/LeadForm.jsx` posts JSON to `/api/lead` (Cloudflare Pages Function).

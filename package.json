@@ -12,7 +12,8 @@
     "content:validate": "node scripts/validate-content.mjs",
     "index:submit": "node scripts/indexing/index.mjs",
     "index:dry": "node scripts/indexing/index.mjs --dry-run",
-    "prebuild": "node scripts/generate-og.mjs"
+    "prebuild": "node scripts/generate-og.mjs",
+    "postbuild": "node scripts/prepare-dist.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
