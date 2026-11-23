@@ -1,0 +1,86 @@
+backend:
+  name: github
+  repo: OWNER/REPO
+  branch: main
+  base_url: https://YOUR-DECAP-OAUTH-PROXY.workers.dev
+  auth_endpoint: auth
+  # If you prefer a hosted Git gateway, replace the block above with:
+  # name: git-gateway
+  # branch: main
+
+site_url: https://syncoaks.com
+display_url: https://syncoaks.com
+logo_url: https://syncoaks.com/sync-oaks-logo-web-hq.svg
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: editorial_workflow
+locale: en
+
+collections:
+  - name: articles
+    label: Articles
+    label_singular: Article
+    folder: content/articles
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{date}} — {{status}}"
+    sortable_fields: [date, title, category, status]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: slug, label: Slug, widget: string, hint: "Lowercase words separated by hyphens. Changing this changes the URL." }
+      - { name: description, label: Excerpt / meta description, widget: text, hint: "Aim for 140–155 characters." }
+      - { name: date, label: Publish date, widget: datetime }
+      - { name: updated, label: Last updated, widget: datetime, required: false }
+      - {
+          name: status,
+          label: Status,
+          widget: select,
+          options: [published, draft, scheduled],
+          default: draft,
+        }
+      - { name: author, label: Author, widget: string, default: Sync-Oaks }
+      - {
+          name: category,
+          label: Category,
+          widget: select,
+          options: [Web Development, SEO, Automation, Cloud, Data & Analytics, Conversion, Agency Operations],
+        }
+      - { name: tags, label: Tags, widget: list, required: false, default: [] }
+      - { name: focusKeyword, label: Focus keyword, widget: string }
+      - { name: coverImage, label: Cover image, widget: image }
+      - { name: coverAlt, label: Cover image alt text, widget: string }
+      - { name: ogImage, label: Open Graph image, widget: image, required: false }
+      - { name: metaTitle, label: Meta title, widget: string, required: false, hint: "Optional. Aim for 50–60 characters." }
+      - { name: metaDescription, label: Meta description, widget: text, required: false, hint: "Optional. Aim for 140–155 characters." }
+      - { name: canonicalOverride, label: Canonical URL override, widget: string, required: false, hint: "Only use if this article was published elsewhere first." }
+      - {
+          name: related,
+          label: Related article slugs,
+          widget: list,
+          required: false,
+          default: [],
+          hint: "Example: technical-seo-checklist",
+        }
+      - name: faq
+        label: FAQ
+        widget: list
+        required: false
+        default: []
+        fields:
+          - { name: q, label: Question, widget: string }
+          - { name: a, label: Answer, widget: text }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: pages
+    label: Site pages
+    files:
+      - name: owner_notes
+        label: Owner notes
+        file: content/site/owner-notes.md
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: body, label: Notes, widget: markdown }

@@ -1,24 +1,31 @@
 {
-  "name": "sync-oaks-react-website",
-  "version": "1.0.0",
+  "name": "syncoaks-website",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --port 5173",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "dev": "next dev",
+    "build": "next build",
+    "preview": "npx serve out",
+    "og:generate": "node scripts/generate-og.mjs",
+    "images:optimize": "node scripts/optimize-images.mjs",
+    "content:validate": "node scripts/validate-content.mjs",
+    "index:submit": "node scripts/indexing/index.mjs",
+    "index:dry": "node scripts/indexing/index.mjs --dry-run",
+    "prebuild": "node scripts/generate-og.mjs"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^5.0.0",
     "framer-motion": "^12.38.0",
-    "lucide-react": "^1.14.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.14.2",
-    "sharp": "^0.35.2",
-    "vite": "^7.0.0"
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^1.78.0",
+    "marked": "^18.2.1",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@google/generative-ai": "^0.24.1"
+    "sharp": "^0.35.5"
   }
 }
